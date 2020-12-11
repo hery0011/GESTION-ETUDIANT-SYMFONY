@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="row mt-5">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<a href="{{ path('new')}}"><button class="btn btn-success">add new</button></a>
+			<table class="table table-hover table-primary">
+				<tr>
+					<th>nom</th>
+					<th>prenom</th>
+					<th>mail</th>
+					<th>password</th>
+					<th>photo</th>
+					<th>action</th>
+				</tr>
+
+				{% for student in students%}
+					<tr>
+						<td>{{student.nom}}</td>
+						<td>{{student.prenom}}</td>
+						<td>{{student.mail}}</td>
+						<td>{{student.password}}</td>
+						<td><img src="{{app.request.basepath}}/uploads/{{student.Photo}}" alt="monimg" height="30px"/></td>
+						<td>
+							<span>edit</span>
+							<span>delete</span>
+						</td>
+					</tr>
+				{% endfor %}
+				
+			</table>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	
+</body>
+</html>
