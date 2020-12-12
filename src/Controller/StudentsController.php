@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 
 class StudentsController extends AbstractController
 {
@@ -50,4 +51,37 @@ class StudentsController extends AbstractController
             ['form'=>$form->createView()]
     );
     }
+
+
+    /**
+     *@Route("/{id}/modif", name="editSudent")
+     */
+    public function modif(Request $request){
+        $study = new Students;
+
+        $form = $this->createForm(StudentType::class, $study);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('students');
+        }
+
+        return $this->render('students/edit.html.twig', [
+            'study' => $study,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="deleteSudent")
+     */
+    public function delete(Students $study){
+        $getId = $this->getDoctrine()->getManager();
+        $getId->remove($study);
+        $getId->flush();
+        return $this->redirectToRoute('students');
+    }
+    
 }

@@ -27,8 +27,8 @@
 						<td>{{student.password}}</td>
 						<td><img src="{{app.request.basepath}}/uploads/{{student.Photo}}" alt="monimg" height="30px"/></td>
 						<td>
-							<span>edit</span>
-							<span>delete</span>
+							<a href="{{path('editSudent',{'id':student.id})}}">edit</a>
+							<a href="{{path('deleteSudent',{'id':student.id})}}">delete</a>
 						</td>
 					</tr>
 				{% endfor %}
